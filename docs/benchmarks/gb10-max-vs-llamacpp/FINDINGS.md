@@ -26,6 +26,20 @@ Hardware: NVIDIA GB10, sm_121 (cc 12.1), aarch64, 128 GB unified LPDDR5X
   clearer error — `Architecture 'Qwen3_5MoeForConditionalGeneration' not found in
   registry`. The missing arch is **`qwen3_5_moe`**; the dense `qwen3_5` works.
 
+## 0. Serving throughput measured on GB10
+
+| Engine | Model | Precision | Device | Gen tok/s | TTFT | Notes |
+|---|---|---|---|---|---|---|
+| llama.cpp | Qwen3.6-35B-A3B (MoE) | Q4_K_M | GPU | **68.6** | — | 20.6 GiB, ~3B active/token |
+| MAX | gemma-4-31B-it (dense) | bf16 | GPU | **1.94** | 0.86 s | 58 GiB; 450 s cold compile |
+
+These are **different models** (the only ones each engine could run) — not a direct
+head-to-head. But the contrast is the story: MAX on GB10 is forced to bf16 (no GPU
+low-bit path), so a 31B dense model reads ~58 GB/token and lands at 1.94 tok/s —
+~40% of the 273 GB/s bandwidth ceiling (~4.7 tok/s theoretical). llama.cpp's MoE
+at Q4 reads a fraction of that per token. A true same-model head-to-head needs a
+MAX-supported model with a matching GGUF (see matched-pair note).
+
 ## 1. llama.cpp baseline (GB10 GPU)
 
 ```
@@ -117,6 +131,43 @@ GB10 = sm_121 is **not** covered:
 | FP8 quant | `comptime assert _is_sm10x_gpu` → fails off SM100 |
 | FP4 / NVFP4 quant | same SM100-only assert (`fp4_quantization.mojo:140`) |
 | RoPE | portable ✓ |
+
+## 4b. Mojo kernel benchmarks on GB10 (bazel)
+
+Built/run from source with `./bazelw run //max/kernels/benchmarks:<target>` (the
+container ships mojo 1.0.0b3.dev2026062006; `bazelw` builds locally on aarch64).
+The benches themselves encode the coverage map via `target_compatible_with`:
+
+**Runnable on GB10** (generic NVIDIA, gated only against Apple):
+`bench_matmul` (dense), `bench_grouped_matmul` (MoE expert matmul), `bench_mha`,
+`bench_mla`, `bench_moe_routing`, `bench_bmm`.
+
+**Incompatible on GB10** (`//:b200_gpu` only — won't build for sm_121):
+`bench_blockwise_fp8_1d2d`, `bench_block_scaled_matmul`, `bench_mma_throughput_sm100`,
+`bench_matmul_tma_epilogue`, `bench_matmul_1d_tma_epilogue`, `bench_conv2d_sm100`,
+`profile_grouped_matmul_swiglu_nvfp4`, `bench_cp_async_bulk`. The optimized
+Blackwell microbenchmarks are literally unbuildable on GB10 — bazel-level
+confirmation of the SM100 gating found in §4.
+
+Measured numbers (sm_121, GB10):
+
+| Kernel bench | Shape | Result |
+|---|---|---|
+| `bench_matmul` bf16 | 1024 × 16384 × 512 (transpose_b) | 0.305 ms → **56.4 TFLOP/s** |
+| `bench_grouped_matmul` (MoE) bf16 | 1×256×256, 1 expert (default) | 0.174 ms → 192.6 GFLOP/s |
+
+Both build and run on sm_121 (`TEST PASSED`, EXIT 0; first build 236 s incl.
+toolchain, then ~10 s cached). The dense path at ~56 TFLOP/s bf16 shows the generic
+NVIDIA matmul is functional and performant on GB10 — the llama.cpp gap is the
+serving-level precision/footprint problem (§0), not raw dense-matmul throughput.
+The grouped (MoE) kernel runs via the generic path too.
+
+**Shape note:** the per-bench `N/K/num_experts` are **comptime** defines baked at
+build; `bazel run -- get_defined_int[N]=…` does **not** override them (still ran
+256³/1-expert). Realistic-shape MoE sweeps require rebuilding via the autotune
+harness `max/kernels/benchmarks/autotune/kbench.py` with a YAML — available, not run
+this round. The default-shape numbers above are real but not representative of
+Qwen-A3B expert dimensions.
 
 ## 5. External corroboration
 

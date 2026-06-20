@@ -1,0 +1,59 @@
+{
+  "timestamp": "2026-06-20T18:25:15.504150Z",
+  "image": "docker.modular.com/modular/max-nvidia-full:nightly",
+  "model": "google/gemma-4-31B-it",
+  "label": "gemma-4-31B-bf16",
+  "gpu": "NVIDIA GB10 sm_121",
+  "device": "gpu:0",
+  "precision": "bfloat16",
+  "max_length": 2048,
+  "batch_size": 1,
+  "ready_seconds": 450,
+  "benchmark": {
+    "model": "google/gemma-4-31B-it",
+    "warmup": 2,
+    "timed": 5,
+    "max_tokens": 128,
+    "ttft_s_mean": 0.8644,
+    "gen_tok_s_mean": 1.94,
+    "gen_tok_s_all": [
+      1.95,
+      1.96,
+      1.96,
+      1.9,
+      1.94
+    ],
+    "runs": [
+      {
+        "ttft_s": 0.8705492479930399,
+        "total_s": 33.117376031994354,
+        "out_tokens": 64,
+        "gen_tok_s": 1.9536806031177096
+      },
+      {
+        "ttft_s": 0.8538052320072893,
+        "total_s": 32.94398174399976,
+        "out_tokens": 64,
+        "gen_tok_s": 1.9632176213320665
+      },
+      {
+        "ttft_s": 0.860712543988484,
+        "total_s": 32.984626223988016,
+        "out_tokens": 64,
+        "gen_tok_s": 1.9611558114484673
+      },
+      {
+        "ttft_s": 0.8677520319906762,
+        "total_s": 34.01494265599467,
+        "out_tokens": 64,
+        "gen_tok_s": 1.9006135607274566
+      },
+      {
+        "ttft_s": 0.8690715039992938,
+        "total_s": 33.32843891199445,
+        "out_tokens": 64,
+        "gen_tok_s": 1.940888101980764
+      }
+    ]
+  }
+}
