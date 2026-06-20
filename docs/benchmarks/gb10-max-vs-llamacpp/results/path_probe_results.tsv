@@ -1,0 +1,5 @@
+timestamp	label	model	encoding	device	result	detail
+2026-06-20T16:15:17Z	moe-nvfp4-gpu	RedHatAI/Qwen3.6-35B-A3B-NVFP4	float4_e2m1fnx2	gpu	FAIL	Traceback (most recent call last):|    raise ValueError(|ValueError: Architecture 'Qwen3_5MoeForConditionalGeneration' not found in registry|
+2026-06-20T16:15:41Z	moe-fp8-gpu	Qwen/Qwen3.6-35B-A3B-FP8	float8_e4m3fn	gpu	FAIL	Traceback (most recent call last):|    raise ValueError(|ValueError: Architecture 'Qwen3_5MoeForConditionalGeneration' not found in registry|
+2026-06-20T16:16:19Z	moe-q4k-gpu	/models/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf	q4_k	gpu	FAIL	Traceback (most recent call last):|    raise FileNotFoundError(|FileNotFoundError: No config.json or scheduler_config.json found in /models/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf/|
+2026-06-20T16:16:43Z	moe-bf16-gpu	Qwen/Qwen3.6-35B-A3B	bfloat16	gpu	FAIL	Traceback (most recent call last):|    raise ValueError(|ValueError: Architecture 'Qwen3_5MoeForConditionalGeneration' not found in registry|

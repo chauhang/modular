@@ -1,0 +1,13 @@
+timestamp	model	class	detail
+2026-06-20T16:11:10Z	Qwen/Qwen2.5-0.5B-Instruct	SUPPORTED_LOADING	arch_ok_loading_at_75s
+2026-06-20T16:12:30Z	Qwen/Qwen3-4B-Instruct-2507	SUPPORTED_LOADING	arch_ok_loading_at_75s
+2026-06-20T16:13:50Z	Qwen/Qwen3.6-27B	SUPPORTED_LOADING	arch_ok_loading_at_75s
+2026-06-20T16:14:14Z	Qwen/Qwen3.6-35B-A3B	UNSUPPORTED_ARCH	arch_not_registered
+2026-06-20T16:57:34Z	meta-llama/Llama-3.2-1B-Instruct	SUPPORTED_LOADING	arch_ok_loading_at_75s
+2026-06-20T16:58:54Z	Qwen/Qwen3-4B-Base	SUPPORTED_LOADING	arch_ok_loading_at_75s
+2026-06-20T17:00:13Z	Qwen/Qwen3Guard-Gen-0.6B	SUPPORTED_LOADING	arch_ok_loading_at_75s
+2026-06-20T17:00:38Z	google/gemma-2-2b-it	UNSUPPORTED_ARCH	arch_not_registered
+2026-06-20T17:01:00Z	google/gemma-4-E2B-it	FAIL_OTHER	Traceback (most recent call last):|TypeError: unsupported operand type(s) for %: 'NoneType' and 'int'|
+2026-06-20T17:01:23Z	google/gemma-4-31B-it	FAIL_OTHER	    raise RuntimeError(|RuntimeError: The model 58.25 GiB, activations 15.00 GiB, and signal buffers 257.00 MiB don't leave room for KV cache. Try running a smaller model, using a smaller precision, o
+2026-06-20T17:01:45Z	nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16	FAIL_OTHER	Please pass the argument `trust_remote_code=True` to allow custom code to be run. [type=value_error, input_value={'model_path': 'nvidia/Ne...=0, device_type='gpu')]}, input_type=dict]|    For further 
+2026-06-20T17:02:08Z	z-lab/Qwen3.6-35B-A3B-DFlash	FAIL_OTHER	    raise FileNotFoundError(|FileNotFoundError: Model path does not exist: HF cache for 'z-lab/Qwen3.6-35B-A3B-DFlash' (revision: main) not found while HF_HUB_OFFLINE is enabled. Configure HF_TOKEN fo

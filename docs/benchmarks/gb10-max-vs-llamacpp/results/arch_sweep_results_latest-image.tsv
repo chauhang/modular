@@ -1,0 +1,5 @@
+timestamp	model	class	detail
+2026-06-20T16:11:10Z	Qwen/Qwen2.5-0.5B-Instruct	SUPPORTED_LOADING	arch_ok_loading_at_75s
+2026-06-20T16:12:30Z	Qwen/Qwen3-4B-Instruct-2507	SUPPORTED_LOADING	arch_ok_loading_at_75s
+2026-06-20T16:13:50Z	Qwen/Qwen3.6-27B	SUPPORTED_LOADING	arch_ok_loading_at_75s
+2026-06-20T16:14:14Z	Qwen/Qwen3.6-35B-A3B	UNSUPPORTED_ARCH	arch_not_registered
