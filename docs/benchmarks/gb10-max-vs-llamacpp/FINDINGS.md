@@ -187,6 +187,15 @@ Three independent signals — the runtime `architecture not available` error, th
 source-traced SM100 kernel gates, and the vendor writeup — converge: **MAX + GB10 +
 Qwen3.6-MoE is not a supported path today.**
 
+**Independent kernel-quality validation (ORNL, SC'25).** Godoy et al.,
+*"Mojo: MLIR-Based Performance-Portable HPC Science Kernels on GPUs"*
+(arXiv:2509.21039), benchmarked Mojo vs vendor CUDA/HIP on H100 + MI300A: Mojo is
+**on par with CUDA/HIP for memory-bound kernels with zero hand-tuning** (Φ̄ ≈
+0.92–0.96; BabelStream Triad 1.01×), with gaps on compute-bound (no fast-math, more
+registers). Since GB10 inference is memory-bandwidth-bound, this says Mojo's kernel
+quality is *not* the GB10 bottleneck — the footprint/quant path is. See
+`KERNEL_APPROACHES.md` for the full kernel comparison (Mojo vs CUDA/Triton/ThunderKittens).
+
 ## 6. Reproduction
 
 - `probe_max_paths.sh phaseA|phaseB` (set `MAX_IMAGE=…:nightly` to switch image)
