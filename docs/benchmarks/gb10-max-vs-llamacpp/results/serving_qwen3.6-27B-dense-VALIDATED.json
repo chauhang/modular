@@ -1,0 +1,22 @@
+{
+  "model": "Qwen/Qwen3.6-27B",
+  "arch": "Qwen3_5ForConditionalGeneration (qwen3_5, dense hybrid gated-DeltaNet)",
+  "precision": "bfloat16",
+  "device": "gpu:0 (GB10 sm_121)",
+  "gen_tok_s_mean": 4.59,
+  "gen_tok_s_all": [
+    4.6,
+    4.58,
+    4.58,
+    4.58,
+    4.58
+  ],
+  "out_tokens": 127,
+  "ready_seconds": 310,
+  "weights_gib": 54,
+  "bw_ceiling_tok_s": 5.05,
+  "bw_efficiency": "~91%",
+  "method": "non-stream /v1/completions, usage.completion_tokens/elapsed",
+  "status": "VALIDATED: serves + generates correct text on GB10",
+  "note": "qwen3_5 pipeline is the foundation for the qwen3_5_moe bring-up"
+}

@@ -1,0 +1,53 @@
+{
+  "timestamp": "2026-06-20T22:24:42.223922Z",
+  "image": "docker.modular.com/modular/max-nvidia-full:nightly",
+  "model": "Qwen/Qwen3.6-27B",
+  "label": "qwen3.6-27B-bf16",
+  "gpu": "NVIDIA GB10 sm_121",
+  "device": "gpu:0",
+  "precision": "bfloat16",
+  "max_length": 2048,
+  "batch_size": 1,
+  "ready_seconds": 360,
+  "benchmark": {
+    "model": "Qwen/Qwen3.6-27B",
+    "warmup": 2,
+    "timed": 5,
+    "max_tokens": 128,
+    "ttft_s_mean": null,
+    "gen_tok_s_mean": null,
+    "gen_tok_s_all": [],
+    "runs": [
+      {
+        "ttft_s": null,
+        "total_s": 27.642808143995353,
+        "out_tokens": 0,
+        "gen_tok_s": 0.0
+      },
+      {
+        "ttft_s": null,
+        "total_s": 27.63660377600172,
+        "out_tokens": 0,
+        "gen_tok_s": 0.0
+      },
+      {
+        "ttft_s": null,
+        "total_s": 27.66804417599633,
+        "out_tokens": 0,
+        "gen_tok_s": 0.0
+      },
+      {
+        "ttft_s": null,
+        "total_s": 27.648443008001777,
+        "out_tokens": 0,
+        "gen_tok_s": 0.0
+      },
+      {
+        "ttft_s": null,
+        "total_s": 27.691435824002838,
+        "out_tokens": 0,
+        "gen_tok_s": 0.0
+      }
+    ]
+  }
+}

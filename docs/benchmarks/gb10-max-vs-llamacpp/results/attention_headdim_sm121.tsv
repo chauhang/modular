@@ -1,0 +1,3 @@
+head_dim	path	met_ms	gflops	shape	notes
+128	flash_attention	0.01443743	2324.13	bf16 nh=32 seq=64 kv=64 bs=1	flash path (head_dim 128 supported on sm_121)
+256	naive_fallback	0.12012255	558.67	bf16 nh=32 seq=64 kv=64 bs=1	naive (head_dim 256 needs sm_90/sm_100; gemma/qwen3.6 hit this)
